@@ -1,15 +1,18 @@
 'use client';
 
 import { useCart } from '@/context/CartContext';
+import { useHydrated } from '@/hooks/useHydrated';
 import CartItem from '@/components/cart/CartItem';
 import CartSummary from '@/components/cart/CartSummary';
 import Link from 'next/link';
 
 export default function CartPage() {
   const { items, removeItem, getTotalItems, getTotalPrice } = useCart();
+  const hydrated = useHydrated();
 
-  const totalItems = getTotalItems();
-  const totalPrice = getTotalPrice();
+  const totalItems = hydrated ? getTotalItems() : 0;
+  const totalPrice = hydrated ? getTotalPrice() : 0;
+  const displayItems = hydrated ? items : [];
 
   return (
     <div>
@@ -35,7 +38,7 @@ export default function CartPage() {
       ) : (
         <>
           <div className="px-4 md:px-page flex flex-col gap-8 pb-40 md:pb-44">
-            {items.map((item) => (
+            {displayItems.map((item) => (
               <CartItem key={item.id} item={item} onRemove={removeItem} />
             ))}
           </div>

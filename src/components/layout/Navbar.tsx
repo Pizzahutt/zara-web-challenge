@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
+import { useHydrated } from '@/hooks/useHydrated';
 
 function LogoMark() {
   return (
@@ -72,7 +73,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const isCartPage = pathname === '/cart';
   const { getTotalItems } = useCart();
-  const totalItems = getTotalItems();
+  const hydrated = useHydrated();
+  const totalItems = hydrated ? getTotalItems() : 0;
 
   return (
     <header className="flex h-header items-center justify-between bg-background px-4 py-6 md:px-page">
