@@ -8,7 +8,7 @@ import { PRODUCTS_HOME_LIMIT } from '@/lib/constants';
 
 export default function Home() {
   const [search, setSearch] = useState('');
-  const { data: products, isLoading } = useProducts(search || undefined);
+  const { data: products, isLoading, error } = useProducts(search || undefined);
 
   const handleSearch = useCallback((query: string) => {
     setSearch(query);
@@ -41,6 +41,10 @@ export default function Home() {
             />
           ))}
         </div>
+      ) : error ? (
+        <p className="px-4 md:px-page py-12 text-sm font-light text-text-secondary">
+          Something went wrong. Please try again later.
+        </p>
       ) : (
         <ProductGrid products={displayProducts} />
       )}

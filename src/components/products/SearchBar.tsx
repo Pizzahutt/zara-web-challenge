@@ -21,7 +21,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   }, [debouncedValue, onSearch]);
 
   return (
-    <div className="border-b border-foreground/50 pb-2">
+    <div className="border-b-[0.5px] border-foreground pb-2">
       <input
         type="search"
         value={input}
