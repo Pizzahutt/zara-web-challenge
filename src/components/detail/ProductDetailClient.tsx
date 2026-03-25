@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/context/CartContext';
 import BackButton from '@/components/detail/BackButton';
@@ -18,6 +19,7 @@ interface ProductDetailClientProps {
 export default function ProductDetailClient({ id }: ProductDetailClientProps) {
   const { data: product, isLoading, error } = useProduct(id);
   const { addItem } = useCart();
+  const router = useRouter();
 
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -57,6 +59,7 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
       storage: selectedStorage!,
       price: selectedStorageOption.price,
     });
+    router.push('/cart');
   };
 
   return (

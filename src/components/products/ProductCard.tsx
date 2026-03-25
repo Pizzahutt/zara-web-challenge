@@ -11,10 +11,16 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   return (
     <Link
       href={`/product/${product.id}`}
-      className="group flex flex-col gap-6 border-[0.5px] border-foreground overflow-hidden p-4 aspect-square"
+      className="group relative flex flex-col gap-6 border-[0.5px] border-foreground overflow-hidden p-4 aspect-square"
       aria-label={`${product.brand} ${product.name}, ${product.basePrice} EUR`}
     >
-      <div className="relative flex-1 min-h-0">
+      {/* Hover overlay — slides up from bottom */}
+      <span
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-0 bg-black transition-all duration-500 ease-out group-hover:h-full z-0"
+        aria-hidden="true"
+      />
+
+      <div className="relative flex-1 min-h-0 z-10">
         <Image
           src={product.imageUrl}
           alt={`${product.brand} ${product.name}`}
@@ -24,12 +30,12 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
           priority={priority}
         />
       </div>
-      <div className="flex items-end gap-2 whitespace-nowrap font-light">
+      <div className="relative z-10 flex items-end gap-2 whitespace-nowrap font-light transition-colors duration-500">
         <div className="flex flex-1 flex-col gap-1 min-w-0 uppercase">
-          <span className="truncate text-[10px] text-text-secondary">{product.brand}</span>
-          <span className="truncate text-xs text-foreground">{product.name}</span>
+          <span className="truncate text-[10px] text-text-secondary group-hover:text-white/70 transition-colors duration-500">{product.brand}</span>
+          <span className="truncate text-xs text-foreground group-hover:text-white transition-colors duration-500">{product.name}</span>
         </div>
-        <span className="text-xs text-foreground shrink-0">{product.basePrice} EUR</span>
+        <span className="text-xs text-foreground group-hover:text-white transition-colors duration-500 shrink-0">{product.basePrice} EUR</span>
       </div>
     </Link>
   );

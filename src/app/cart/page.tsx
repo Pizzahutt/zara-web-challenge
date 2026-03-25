@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useCart } from '@/context/CartContext';
 import { useHydrated } from '@/hooks/useHydrated';
 import CartItem from '@/components/cart/CartItem';
@@ -15,7 +16,11 @@ export default function CartPage() {
   const displayItems = hydrated ? items : [];
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+    >
       {/* Separator line below header */}
       <div className="h-px bg-black" />
 
@@ -45,6 +50,6 @@ export default function CartPage() {
           <CartSummary totalPrice={totalPrice} />
         </>
       )}
-    </div>
+    </motion.div>
   );
 }
