@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import QueryProvider from '@/providers/QueryProvider';
+import { CartProvider } from '@/context/CartContext';
+import Navbar from '@/components/layout/Navbar';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -13,7 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <QueryProvider>
+          <CartProvider>
+            <Navbar />
+            <main>{children}</main>
+          </CartProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }
