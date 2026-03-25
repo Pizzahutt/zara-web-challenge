@@ -4,9 +4,10 @@ import type { Product } from '@/lib/types';
 
 interface ProductCardProps {
   product: Product;
+  priority?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, priority = false }: ProductCardProps) {
   return (
     <Link
       href={`/product/${product.id}`}
@@ -20,6 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
           className="object-contain"
+          priority={priority}
         />
       </div>
       <div className="flex items-end gap-2 whitespace-nowrap font-light">

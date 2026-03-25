@@ -16,6 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://prueba-tecnica-api-tienda-moviles.onrender.com" />
+        <link rel="dns-prefetch" href="https://prueba-tecnica-api-tienda-moviles.onrender.com" />
+      </head>
       <body>
         <QueryProvider>
           <CartProvider>
