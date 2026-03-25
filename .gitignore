@@ -140,3 +140,10 @@ temp-scaffold/
 
 # Internal plan (not public)
 docs/plan.md
+
+# AI / Copilot configuration (not public)
+.github/copilot-instructions.md
+.vscode/mcp.json
+.github/*.prompt.md
+.github/*.agent.md
+**/.instructions.md
