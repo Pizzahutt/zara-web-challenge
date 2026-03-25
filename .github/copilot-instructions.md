@@ -32,9 +32,10 @@ E-commerce web app for a mobile phone catalog. Three views: product listing, pro
 - Use Context7 MCP (`/vercel/next.js`, `/tailwindlabs/tailwindcss.com`, `/vitest-dev/vitest`) for up-to-date docs when unsure about API usage
 
 ## Figma
-- Design file: `Nuic7ePgOfUQ0hcBrUUQrb` (node `0-1`)
-- Prototype file: same key, node `20620-406`
-- **IMPORTANT:** Figma MCP is limited to 6 calls/month (Starter plan). Be strategic — batch information extraction. Prefer `get_design_context` over multiple small calls.
+- Design file: `k4tfMXmOSAudq5tlW9n7g5` (node `0-1`) — user's duplicate
+- Prototype: same file, node `20620-406` (view in browser for navigation flows)
+- Original file (read-only): `Nuic7ePgOfUQ0hcBrUUQrb`
+- Plan: Pro (200 calls/day)
 
 ## File Structure (planned)
 ```

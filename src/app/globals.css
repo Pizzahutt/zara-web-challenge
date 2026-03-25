@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ── Colors ──────────────────────────────────────── */
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-text-secondary: #79736d;
+  --color-border: #000000;
+
+  /* ── Typography ──────────────────────────────────── */
+  --font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-base: 16px;
+
+  /* ── Spacing (from Figma) ────────────────────────── */
+  --spacing-page: 100px;
+  --spacing-card-padding: 16px;
+  --spacing-card-gap: 24px;
+  --spacing-info-gap: 8px;
+  --spacing-brand-gap: 4px;
+  --spacing-header-y: 24px;
+
+  /* ── Layout ──────────────────────────────────────── */
+  --header-height: 80px;
+  --card-size: 344px;
+}
+
+body {
+  color: var(--color-foreground);
+  background: var(--color-background);
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

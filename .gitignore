@@ -134,3 +134,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Temporary scaffold directory
+temp-scaffold/
+
+# Internal plan (not public)
+docs/plan.md
