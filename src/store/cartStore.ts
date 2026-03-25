@@ -28,12 +28,12 @@ export const useCartStore = create<CartState>()(
             };
           }
           return { items: [...state.items, { ...item, id, quantity: 1 }] };
-        }),
+        }, false, 'addItem'),
 
       removeItem: (id) =>
         set((state) => ({
           items: state.items.filter((i) => i.id !== id),
-        })),
+        }), false, 'removeItem'),
 
       getTotalItems: () => get().items.reduce((acc, i) => acc + i.quantity, 0),
 
