@@ -4,7 +4,7 @@ E-commerce web application for browsing a mobile phone catalog. Built as part of
 
 ## Live Demo
 
-> _Deploy URL will be added after Vercel configuration_
+[https://zara-web-challenge-peach.vercel.app](https://zara-web-challenge-peach.vercel.app)
 
 ## Features
 
