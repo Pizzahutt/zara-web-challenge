@@ -42,6 +42,9 @@ build/Release
 test-results/
 playwright-report/
 
+# Lighthouse
+lighthouse-report.json
+
 # Dependency directories
 node_modules/
 jspm_packages/
