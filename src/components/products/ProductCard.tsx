@@ -14,9 +14,9 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
       className="group relative flex flex-col gap-6 border-r-[0.5px] border-b-[0.5px] border-black overflow-hidden p-4 aspect-square"
       aria-label={`${product.brand} ${product.name}, ${product.basePrice} EUR`}
     >
-      {/* Hover overlay — height + opacity animate together (matches Figma Smart Animate) */}
+      {/* Hover overlay — scaleY + opacity on GPU (no layout reflow) */}
       <span
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-0 bg-black opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100 z-0"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-black opacity-0 origin-bottom scale-y-0 group-hover:scale-y-100 group-hover:opacity-100 transition-[transform,opacity] duration-500 ease-out will-change-[transform,opacity] z-0"
         aria-hidden="true"
       />
 
