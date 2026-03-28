@@ -8,42 +8,25 @@ import { useHydrated } from '@/hooks/useHydrated';
 function LogoMark() {
   return (
     <svg
-      width="13"
+      width="28"
       height="15"
-      viewBox="0 0 13 15"
+      viewBox="0 0 28 15"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* 8-pointed asterisk mark built from rotated bars */}
-      <rect x="5" y="0" width="3" height="15" rx="0.5" fill="currentColor" />
-      <rect
-        x="0"
-        y="6"
-        width="3"
-        height="15"
-        rx="0.5"
+      {/* Crescent moon shape (Figma "Subtract") */}
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12.8454 2.23917C11.485 0.857001 9.59259 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15C9.50619 15 11.3284 14.2123 12.6742 12.9293C11.6202 11.4554 11 9.65014 11 7.7C11 5.64651 11.6877 3.75364 12.8454 2.23917Z"
         fill="currentColor"
-        transform="rotate(-90 0 6)"
       />
-      <rect
-        x="1.5"
-        y="1"
-        width="3"
-        height="14.5"
-        rx="0.5"
-        fill="currentColor"
-        transform="rotate(-45 6.5 7.5)"
-      />
-      <rect
-        x="1.5"
-        y="1"
-        width="3"
-        height="14.5"
-        rx="0.5"
-        fill="currentColor"
-        transform="rotate(45 6.5 7.5)"
-      />
+      {/* 8-pointed asterisk: 4 bars rotated around center */}
+      <rect x="18.44" y="0.43" width="3.143" height="14.571" fill="currentColor" />
+      <rect x="18.44" y="0.43" width="3.143" height="14.571" fill="currentColor" transform="rotate(90 20.01 7.72)" />
+      <rect x="18.44" y="0.43" width="3.143" height="14.571" fill="currentColor" transform="rotate(45 20.01 7.72)" />
+      <rect x="18.44" y="0.43" width="3.143" height="14.571" fill="currentColor" transform="rotate(-45 20.01 7.72)" />
     </svg>
   );
 }
@@ -81,7 +64,7 @@ export default function Navbar() {
       <Link href="/" aria-label="MBST home">
         <span className="flex items-center gap-1.5">
           <LogoMark />
-          <span className="text-xl font-bold uppercase leading-none tracking-tighter">MBST</span>
+          <span className="text-xl font-bold uppercase leading-none" style={{ letterSpacing: '-2.9px' }}>MBST</span>
         </span>
       </Link>
 
