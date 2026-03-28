@@ -24,22 +24,24 @@ export default function ProductGrid({ products }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 px-4 md:px-page">
-      <AnimatePresence mode="popLayout">
-        {products.map((product, index) => (
-          <motion.div
-            key={product.id}
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            transition={{ duration: 0.3, delay: index * 0.02 }}
-            layout
-          >
-            <ProductCard product={product} priority={index < 5} />
-          </motion.div>
-        ))}
-      </AnimatePresence>
+    <div className="px-4 md:px-page">
+      <div className="flex flex-wrap border-t-[0.5px] border-l-[0.5px] border-black">
+        <AnimatePresence mode="popLayout">
+          {products.map((product, index) => (
+            <motion.div
+              key={product.id}
+              className="w-full sm:w-1/2 lg:w-1/5"
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.3, delay: index * 0.02 }}
+            >
+              <ProductCard product={product} priority={index < 5} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

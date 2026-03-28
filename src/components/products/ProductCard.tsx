@@ -11,12 +11,12 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   return (
     <Link
       href={`/product/${product.id}`}
-      className="group relative flex flex-col gap-6 border-[0.5px] border-foreground overflow-hidden p-4 aspect-square"
+      className="group relative flex flex-col gap-6 border-r-[0.5px] border-b-[0.5px] border-black overflow-hidden p-4 aspect-square"
       aria-label={`${product.brand} ${product.name}, ${product.basePrice} EUR`}
     >
-      {/* Hover overlay — slides up from bottom */}
+      {/* Hover overlay — height + opacity animate together (matches Figma Smart Animate) */}
       <span
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-0 bg-black transition-all duration-500 ease-out group-hover:h-full z-0"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-0 bg-black opacity-0 transition-all duration-500 ease-out group-hover:h-full group-hover:opacity-100 z-0"
         aria-hidden="true"
       />
 
