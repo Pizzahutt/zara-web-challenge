@@ -118,8 +118,8 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
           </div>
         </div>
 
-        {/* Specs */}
-        <div className="py-10 md:py-16 max-w-[1200px] mx-auto px-4">
+        {/* Specs — hidden on mobile per Figma */}
+        <div className="hidden md:block py-10 md:py-16 max-w-[1200px] mx-auto px-4">
           <ProductSpecs
             specs={product.specs}
             brand={product.brand}
@@ -128,8 +128,8 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
           />
         </div>
 
-        {/* Similar Items */}
-        <div className="py-10 md:py-16 pb-20 md:pb-24 max-w-[1200px] mx-auto px-4">
+        {/* Similar Items — hidden on mobile per Figma */}
+        <div className="hidden md:block py-10 md:py-16 pb-20 md:pb-24 max-w-[1200px] mx-auto px-4">
           <SimilarProducts products={product.similarProducts} />
         </div>
       </div>
