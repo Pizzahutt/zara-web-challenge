@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import type { ColorOption } from '@/lib/types';
 
 interface ColorSelectorProps {
@@ -14,11 +15,14 @@ export default function ColorSelector({
   onSelect,
 }: ColorSelectorProps) {
   const selectedOption = options.find((o) => o.name === selected);
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  const displayName = hovered ?? selectedOption?.name ?? null;
 
   return (
     <div className="flex flex-col gap-6">
       <p className="font-light text-sm uppercase">
-        Color. <span className="normal-case">Pick your favourite.</span>
+        Color. Pick your favourite.
       </p>
       <div className="flex flex-col gap-2">
         <div className="flex gap-4 items-center" role="radiogroup" aria-label="Color options">
@@ -28,6 +32,8 @@ export default function ColorSelector({
               <button
                 key={option.name}
                 onClick={() => onSelect(option.name)}
+                onMouseEnter={() => setHovered(option.name)}
+                onMouseLeave={() => setHovered(null)}
                 className={`flex items-center justify-center size-6 border ${
                   isSelected ? 'border-black' : 'border-[#ccc]'
                 }`}
@@ -43,9 +49,13 @@ export default function ColorSelector({
             );
           })}
         </div>
-        {selectedOption && (
-          <span className="font-light text-sm">{selectedOption.name}</span>
-        )}
+        <span
+          className={`font-light text-[12px] transition-opacity duration-300 ${
+            displayName ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {displayName || '\u00A0'}
+        </span>
       </div>
     </div>
   );

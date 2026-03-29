@@ -16,7 +16,7 @@ export default function StorageSelector({
   return (
     <div className="flex flex-col gap-6">
       <p className="font-light text-sm uppercase">
-        Storage. <span className="normal-case">¿How much space do you need?</span>
+        Storage. ¿How much space do you need?
       </p>
       <div className="flex flex-wrap">
         {options.map((option, index) => {

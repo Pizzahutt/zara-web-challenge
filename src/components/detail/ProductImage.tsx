@@ -11,13 +11,13 @@ interface ProductImageProps {
 export default function ProductImage({ src, alt }: ProductImageProps) {
   return (
     <div className="relative w-full aspect-[510/630] md:w-[510px] md:h-[630px] shrink-0 overflow-hidden">
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false}>
         <motion.div
           key={src}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: 'easeInOut' }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
           className="absolute inset-0"
         >
           <Image

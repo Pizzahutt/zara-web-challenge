@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/context/CartContext';
 import BackButton from '@/components/detail/BackButton';
@@ -24,6 +25,15 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
+  // Preload all color variant images so transitions are instant
+  useEffect(() => {
+    if (!product) return;
+    product.colorOptions.forEach((opt) => {
+      const img = new window.Image();
+      img.src = opt.imageUrl;
+    });
+  }, [product]);
+
   if (isLoading) {
     return <ProductDetailSkeleton />;
   }
@@ -44,7 +54,9 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
   );
 
   const displayImage = selectedColorOption?.imageUrl ?? product.colorOptions[0]?.imageUrl ?? '';
-  const displayPrice = selectedStorageOption?.price ?? product.basePrice;
+  const lowestPrice = Math.min(...product.storageOptions.map((s) => s.price));
+  const displayPrice = selectedStorageOption?.price ?? lowestPrice;
+  const showFrom = !selectedStorageOption;
 
   const canAddToCart = selectedStorage !== null && selectedColor !== null;
 
@@ -63,7 +75,11 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, ease: 'easeOut' }}
+    >
       <BackButton />
 
       <div>
@@ -78,7 +94,7 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
             {/* Title + Price */}
             <div className="flex flex-col gap-3 font-light">
               <h1 className="text-2xl uppercase">{product.name}</h1>
-              <p className="text-xl capitalize">{displayPrice} EUR</p>
+              <p className="text-xl capitalize">{showFrom ? 'from ' : ''}{displayPrice} EUR</p>
             </div>
 
             {/* Selectors */}
@@ -117,7 +133,7 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
           <SimilarProducts products={product.similarProducts} />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
