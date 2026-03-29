@@ -43,12 +43,17 @@ export default function ProductSpecs({
 
   return (
     <section className="flex flex-col gap-10">
-      <h2 className="font-light text-xl capitalize">Specifications</h2>
+      <h2
+        className="text-xl uppercase"
+        style={{ fontWeight: 300, WebkitTextStroke: '0.3px white' }}
+      >
+        Specifications
+      </h2>
       <dl className="flex flex-col">
         {rows.map((row, index) => (
           <div
             key={row.label}
-            className={`flex gap-6 md:gap-12 py-4 border-b-[0.5px] border-black font-light text-sm ${
+            className={`flex gap-6 md:gap-12 py-4 border-b-[0.5px] border-black font-light text-[12px] ${
               index === 0 ? 'border-t-[0.5px]' : ''
             }`}
           >

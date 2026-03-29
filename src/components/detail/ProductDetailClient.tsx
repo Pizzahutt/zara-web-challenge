@@ -66,9 +66,9 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
     <div>
       <BackButton />
 
-      <div className="px-4 md:px-page">
+      <div>
         {/* Hero: image + info */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-10 md:gap-16 py-10 md:py-16">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10 md:gap-0 py-10 md:py-16 max-w-[1200px] mx-auto px-4">
           <ProductImage
             src={displayImage}
             alt={`${product.brand} ${product.name}`}
@@ -103,7 +103,7 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
         </div>
 
         {/* Specs */}
-        <div className="py-10 md:py-16 max-w-[1200px] mx-auto">
+        <div className="py-10 md:py-16 max-w-[1200px] mx-auto px-4">
           <ProductSpecs
             specs={product.specs}
             brand={product.brand}
@@ -113,7 +113,7 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
         </div>
 
         {/* Similar Items */}
-        <div className="py-10 md:py-16 pb-20 md:pb-24 max-w-[1200px] mx-auto">
+        <div className="py-10 md:py-16 pb-20 md:pb-24 max-w-[1200px] mx-auto px-4">
           <SimilarProducts products={product.similarProducts} />
         </div>
       </div>
