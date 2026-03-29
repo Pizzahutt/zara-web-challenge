@@ -2,33 +2,67 @@
 
 import { useState, useCallback } from 'react';
 import SearchBar from '@/components/products/SearchBar';
+import ColorFilter from '@/components/products/ColorFilter';
 import ProductGrid from '@/components/products/ProductGrid';
 import { useProducts } from '@/hooks/useProducts';
+import { useProductColors } from '@/hooks/useProductColors';
 import { PRODUCTS_HOME_LIMIT } from '@/lib/constants';
 
 export default function Home() {
   const [search, setSearch] = useState('');
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [filterOpen, setFilterOpen] = useState(false);
   const { data: products, isLoading, error } = useProducts(search || undefined);
+  const { topColors, productColorMap, colorImageMap } = useProductColors(
+    products ?? [],
+    filterOpen,
+  );
 
   const handleSearch = useCallback((query: string) => {
     setSearch(query);
   }, []);
 
+  const handleToggleFilter = useCallback(() => {
+    setFilterOpen((prev) => {
+      if (prev) setSelectedColor(null);
+      return !prev;
+    });
+  }, []);
+
   const isSearching = search.length > 0;
-  const displayProducts = products
-    ? isSearching
-      ? products
-      : products.slice(0, PRODUCTS_HOME_LIMIT)
+  const uniqueProducts = products
+    ? Array.from(new Map(products.map((p) => [p.id, p])).values())
     : [];
+  const baseProducts = isSearching
+    ? uniqueProducts
+    : uniqueProducts.slice(0, PRODUCTS_HOME_LIMIT);
+
+  const displayProducts = selectedColor
+    ? baseProducts
+        .filter((p) => productColorMap.get(p.id)?.has(selectedColor))
+        .map((p) => {
+          const colorImg = colorImageMap.get(p.id)?.get(selectedColor);
+          return colorImg ? { ...p, imageUrl: colorImg } : p;
+        })
+    : baseProducts;
 
   return (
     <div className="flex flex-col gap-3 pb-12">
       {/* Search wrapper */}
-      <div className="flex flex-col gap-3 px-4 md:px-page py-3">
+      <div className="flex flex-col gap-3 px-4 md:px-page py-3 pb-8">
         <SearchBar onSearch={handleSearch} />
-        <p className="text-sm font-light uppercase">
-          {isLoading ? '\u00A0' : `${displayProducts.length} results`}
-        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-light uppercase">
+            {isLoading ? '\u00A0' : `${displayProducts.length} results`}
+          </p>
+          <ColorFilter
+            colors={topColors}
+            selectedColor={selectedColor}
+            onSelectColor={setSelectedColor}
+            isOpen={filterOpen}
+            onToggle={handleToggleFilter}
+          />
+        </div>
       </div>
 
       {/* Product grid */}
