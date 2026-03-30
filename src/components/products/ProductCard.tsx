@@ -16,7 +16,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
     >
       {/* Hover overlay — scaleY + opacity on GPU (no layout reflow) */}
       <span
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-black opacity-0 origin-bottom scale-y-0 group-hover:scale-y-100 group-hover:opacity-100 transition-[transform,opacity] duration-500 ease-out will-change-[transform,opacity] z-0"
+        className="pointer-events-none absolute -inset-px bg-black opacity-0 origin-bottom scale-y-0 group-hover:scale-y-100 group-hover:opacity-100 transition-[transform,opacity] duration-500 ease-out will-change-[transform,opacity] z-0"
         aria-hidden="true"
       />
 
