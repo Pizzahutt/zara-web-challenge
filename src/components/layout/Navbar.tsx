@@ -31,7 +31,7 @@ function LogoMark() {
   );
 }
 
-function BagIcon() {
+function BagIcon({ filled = false }: { filled?: boolean }) {
   return (
     <svg
       width="18"
@@ -41,8 +41,18 @@ function BagIcon() {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
+      {/* Bag body */}
       <path
-        d="M5.4 7.2V4.5C5.4 2.52 7.02 0.9 9 0.9C10.98 0.9 12.6 2.52 12.6 4.5V7.2M3.6 5.4H14.4C15.06 5.4 15.6 5.94 15.6 6.6V15.6C15.6 16.26 15.06 16.8 14.4 16.8H3.6C2.94 16.8 2.4 16.26 2.4 15.6V6.6C2.4 5.94 2.94 5.4 3.6 5.4Z"
+        d="M3.6 5.4H14.4C15.06 5.4 15.6 5.94 15.6 6.6V15.6C15.6 16.26 15.06 16.8 14.4 16.8H3.6C2.94 16.8 2.4 16.26 2.4 15.6V6.6C2.4 5.94 2.94 5.4 3.6 5.4Z"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill={filled ? 'currentColor' : 'none'}
+      />
+      {/* Handle — always stroke only */}
+      <path
+        d="M5.4 7.2V4.5C5.4 2.52 7.02 0.9 9 0.9C10.98 0.9 12.6 2.52 12.6 4.5V7.2"
         stroke="currentColor"
         strokeWidth="1.2"
         strokeLinecap="round"
@@ -75,7 +85,7 @@ export default function Navbar() {
           className="flex items-center gap-1.5 py-1"
           aria-label={`Shopping bag, ${totalItems} items`}
         >
-          <BagIcon />
+          <BagIcon filled={totalItems > 0} />
           <span className="font-light uppercase leading-4">{totalItems}</span>
         </Link>
       )}

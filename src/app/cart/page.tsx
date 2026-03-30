@@ -21,8 +21,8 @@ export default function CartPage() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
-      {/* Separator line below header */}
-      <div className="h-px bg-black" />
+      {/* Separator line below header — hidden on mobile per Figma prototype */}
+      <div className="hidden md:block h-px bg-black" />
 
       <div className="px-4 md:px-page py-6 md:py-12">
         <h1 className="font-light text-2xl uppercase">
