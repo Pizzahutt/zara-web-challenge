@@ -21,7 +21,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   }, [debouncedValue, onSearch]);
 
   return (
-    <div className="border-b-[0.5px] border-foreground pb-2 flex items-center gap-3">
+    <search className="border-b-[0.5px] border-foreground pb-2 flex items-center gap-3" aria-label="Product search">
       <input
         type="text"
         value={input}
@@ -47,6 +47,6 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
           </svg>
         </button>
       )}
-    </div>
+    </search>
   );
 }

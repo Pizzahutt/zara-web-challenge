@@ -26,6 +26,8 @@ export default function ColorFilter({
   return (
     <div className="md:hidden flex items-center justify-end gap-6">
       <div
+        role="radiogroup"
+        aria-label="Filter by color"
         className={`relative flex items-center gap-4 transition-opacity duration-200 ${
           isOpen && colors.length > 0
             ? 'opacity-100 pointer-events-auto'
@@ -40,6 +42,8 @@ export default function ColorFilter({
             <button
               key={color.hexCode}
               onClick={() => handleColorClick(color.hexCode)}
+              role="radio"
+              aria-checked={selectedColor === color.hexCode}
               aria-label={color.name}
               className={`size-6 border flex items-center justify-center ${
                 selectedColor === color.hexCode
@@ -66,6 +70,7 @@ export default function ColorFilter({
       </div>
       <button
         onClick={onToggle}
+        aria-expanded={isOpen}
         className="font-light text-[12px] uppercase tracking-[0.96px]"
       >
         {isOpen ? 'Cerrar' : 'Filtrar'}

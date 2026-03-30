@@ -61,6 +61,7 @@ export default function Navbar() {
 
   return (
     <header className="flex h-header items-center justify-between bg-background px-4 py-6 md:px-page">
+      <nav aria-label="Main navigation" className="flex w-full items-center justify-between">
       <Link href="/" aria-label="MBST home">
         <span className="flex items-center gap-1.5">
           <LogoMark />
@@ -78,6 +79,7 @@ export default function Navbar() {
           <span className="font-light uppercase leading-4">{totalItems}</span>
         </Link>
       )}
+      </nav>
     </header>
   );
 }

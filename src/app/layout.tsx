@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import QueryProvider from '@/providers/QueryProvider';
 import { CartProvider } from '@/context/CartContext';
 import Navbar from '@/components/layout/Navbar';
+import NavigationProgress from '@/components/layout/NavigationProgress';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <link rel="preconnect" href="https://prueba-tecnica-api-tienda-moviles.onrender.com" />
         <link rel="dns-prefetch" href="https://prueba-tecnica-api-tienda-moviles.onrender.com" />
@@ -24,6 +25,7 @@ export default function RootLayout({
         <QueryProvider>
           <CartProvider>
             <Navbar />
+            <NavigationProgress />
             <main>{children}</main>
           </CartProvider>
         </QueryProvider>

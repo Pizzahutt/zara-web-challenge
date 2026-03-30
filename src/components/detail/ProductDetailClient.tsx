@@ -139,7 +139,7 @@ export default function ProductDetailClient({ id }: ProductDetailClientProps) {
 
 function ProductDetailSkeleton() {
   return (
-    <div className="px-4 md:px-page animate-pulse">
+    <div className="px-4 md:px-page animate-pulse" aria-busy="true" aria-label="Loading product details">
       <div className="h-10 w-20 mt-3" />
       <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-10 md:gap-16 py-10 md:py-16">
         <div className="bg-gray-200 w-full md:w-[510px] aspect-[510/630]" />

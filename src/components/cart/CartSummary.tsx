@@ -24,7 +24,7 @@ export default function CartSummary({ totalPrice }: CartSummaryProps) {
           </Link>
           <button
             className="bg-[#1b1a18] text-white h-12 w-[174px] flex items-center justify-center font-light text-[12px] uppercase tracking-[0.96px]"
-            aria-label="Pay"
+            aria-label={`Pay ${totalPrice} EUR`}
           >
             Pay
           </button>
@@ -46,7 +46,7 @@ export default function CartSummary({ totalPrice }: CartSummaryProps) {
           </div>
           <button
             className="bg-[#1b1a18] text-white h-14 w-[260px] flex items-center justify-center font-light text-[12px] uppercase tracking-[0.96px]"
-            aria-label="Pay"
+            aria-label={`Pay ${totalPrice} EUR`}
           >
             Pay
           </button>

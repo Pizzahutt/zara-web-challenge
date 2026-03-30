@@ -81,7 +81,7 @@ export default function SimilarProducts({ products }: SimilarProductsProps) {
   if (products.length === 0) return null;
 
   return (
-    <section className="flex flex-col gap-10">
+    <section className="flex flex-col gap-10" role="region" aria-roledescription="carousel" aria-label="Similar products">
       <h2
         className="text-xl uppercase"
         style={{ fontWeight: 300, WebkitTextStroke: '0.3px white' }}

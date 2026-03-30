@@ -52,7 +52,7 @@ export default function Home() {
       <div className="flex flex-col gap-3 px-4 md:px-page py-3 pb-8">
         <SearchBar onSearch={handleSearch} />
         <div className="flex items-center justify-between">
-          <p className="text-sm font-light uppercase">
+          <p className="text-sm font-light uppercase" role="status" aria-live="polite">
             {isLoading ? '\u00A0' : `${displayProducts.length} results`}
           </p>
           <ColorFilter
@@ -67,7 +67,7 @@ export default function Home() {
 
       {/* Product grid */}
       {isLoading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 px-4 md:px-page">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 px-4 md:px-page" aria-busy="true" aria-label="Loading products">
           {Array.from({ length: PRODUCTS_HOME_LIMIT }).map((_, i) => (
             <div
               key={i}

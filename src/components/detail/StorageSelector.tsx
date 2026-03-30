@@ -18,7 +18,7 @@ export default function StorageSelector({
       <p className="font-light text-sm uppercase">
         Storage. ¿How much space do you need?
       </p>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap" role="radiogroup" aria-label="Storage options">
         {options.map((option, index) => {
           const isSelected = selected === option.capacity;
           return (
@@ -32,7 +32,8 @@ export default function StorageSelector({
                     ? 'border border-[#ccc]'
                     : 'border-t border-b border-r border-[#ccc]'
               }`}
-              aria-pressed={isSelected}
+              role="radio"
+              aria-checked={isSelected}
               aria-label={`${option.capacity}, ${option.price} EUR`}
             >
               {option.capacity}
