@@ -20,7 +20,7 @@ describe('SearchBar', () => {
     const onSearch = vi.fn();
     render(<SearchBar onSearch={onSearch} />);
 
-    const input = screen.getByRole('searchbox');
+    const input = screen.getByRole('textbox');
     await act(async () => {
       fireEvent.change(input, { target: { value: 'samsung' } });
     });

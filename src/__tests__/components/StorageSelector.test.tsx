@@ -19,12 +19,12 @@ describe('StorageSelector', () => {
     expect(screen.getByText('1 TB')).toBeInTheDocument();
   });
 
-  it('marks selected option as pressed', () => {
+  it('marks selected option as checked', () => {
     render(
       <StorageSelector options={mockOptions} selected="512 GB" onSelect={() => {}} />,
     );
     const selected = screen.getByLabelText('512 GB, 1199 EUR');
-    expect(selected).toHaveAttribute('aria-pressed', 'true');
+    expect(selected).toHaveAttribute('aria-checked', 'true');
   });
 
   it('calls onSelect when an option is clicked', () => {
