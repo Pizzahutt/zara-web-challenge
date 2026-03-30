@@ -11,15 +11,22 @@ interface SimilarProductsProps {
 
 export default function SimilarProducts({ products }: SimilarProductsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
   const [thumbWidth, setThumbWidth] = useState(0);
   const [thumbLeft, setThumbLeft] = useState(0);
   const [canScroll, setCanScroll] = useState(false);
 
-  /* ── drag-to-scroll state ── */
+  /* ── drag-to-scroll state (carousel) ── */
   const isDragging = useRef(false);
   const hasDragged = useRef(false);
   const startX = useRef(0);
   const scrollStart = useRef(0);
+
+  /* ── drag-to-scroll state (scrollbar thumb) ── */
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isThumbDragging = useRef(false);
+  const thumbStartX = useRef(0);
+  const thumbScrollStart = useRef(0);
 
   const updateScrollbar = useCallback(() => {
     const el = scrollRef.current;
@@ -28,8 +35,15 @@ export default function SimilarProducts({ products }: SimilarProductsProps) {
     const scrollable = scrollWidth > clientWidth;
     setCanScroll(scrollable);
     if (scrollable) {
-      setThumbWidth((clientWidth / scrollWidth) * 100);
-      setThumbLeft((scrollLeft / scrollWidth) * 100);
+      const w = (clientWidth / scrollWidth) * 100;
+      const l = (scrollLeft / scrollWidth) * 100;
+      setThumbWidth(w);
+      setThumbLeft(l);
+      // Direct DOM update for instant feedback during drag
+      if (thumbRef.current) {
+        thumbRef.current.style.width = `${w}%`;
+        thumbRef.current.style.left = `${l}%`;
+      }
     }
   }, []);
 
@@ -55,19 +69,62 @@ export default function SimilarProducts({ products }: SimilarProductsProps) {
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
-      if (!isDragging.current || !scrollRef.current) return;
-      const dx = e.pageX - startX.current;
-      if (Math.abs(dx) > 3) hasDragged.current = true;
-      scrollRef.current.scrollLeft = scrollStart.current - dx;
+      if (!scrollRef.current) return;
+
+      /* carousel drag */
+      if (isDragging.current) {
+        const dx = e.pageX - startX.current;
+        if (Math.abs(dx) > 3) hasDragged.current = true;
+        scrollRef.current.scrollLeft = scrollStart.current - dx;
+      }
+
+      /* scrollbar thumb drag */
+      if (isThumbDragging.current && trackRef.current) {
+        const track = trackRef.current;
+        const trackRect = track.getBoundingClientRect();
+        const dx = e.clientX - thumbStartX.current;
+        const ratio = dx / trackRect.width;
+        const { scrollWidth, clientWidth } = scrollRef.current;
+        scrollRef.current.scrollLeft = thumbScrollStart.current + ratio * (scrollWidth - clientWidth);
+      }
     };
     const onMouseUp = () => {
       isDragging.current = false;
+      if (isThumbDragging.current) {
+        isThumbDragging.current = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      }
     };
+
+    /* touch handlers for scrollbar thumb drag */
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isThumbDragging.current || !scrollRef.current || !trackRef.current) return;
+      const touch = e.touches[0];
+      const track = trackRef.current;
+      const trackRect = track.getBoundingClientRect();
+      const dx = touch.clientX - thumbStartX.current;
+      const ratio = dx / trackRect.width;
+      const { scrollWidth, clientWidth } = scrollRef.current;
+      scrollRef.current.scrollLeft = thumbScrollStart.current + ratio * (scrollWidth - clientWidth);
+    };
+    const onTouchEnd = () => {
+      if (isThumbDragging.current) {
+        isThumbDragging.current = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      }
+    };
+
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('touchend', onTouchEnd);
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
     };
   }, []);
 
@@ -77,6 +134,33 @@ export default function SimilarProducts({ products }: SimilarProductsProps) {
       e.stopPropagation();
     }
   }, []);
+
+  /* ── scrollbar track click / thumb drag ── */
+  const startTrackDrag = useCallback((clientX: number) => {
+    if (!scrollRef.current || !trackRef.current) return;
+    const track = trackRef.current;
+    const trackRect = track.getBoundingClientRect();
+    const clickRatio = (clientX - trackRect.left) / trackRect.width;
+    const { scrollWidth, clientWidth } = scrollRef.current;
+
+    scrollRef.current.scrollLeft = clickRatio * (scrollWidth - clientWidth);
+
+    isThumbDragging.current = true;
+    thumbStartX.current = clientX;
+    thumbScrollStart.current = scrollRef.current.scrollLeft;
+    document.body.style.cursor = 'grabbing';
+    document.body.style.userSelect = 'none';
+  }, []);
+
+  const onTrackMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    startTrackDrag(e.clientX);
+  }, [startTrackDrag]);
+
+  const onTrackTouchStart = useCallback((e: React.TouchEvent) => {
+    e.stopPropagation();
+    startTrackDrag(e.touches[0].clientX);
+  }, [startTrackDrag]);
 
   if (products.length === 0) return null;
 
@@ -135,12 +219,18 @@ export default function SimilarProducts({ products }: SimilarProductsProps) {
         ))}
       </div>
 
-      {/* Custom scroll indicator — Figma: gray track + black thumb */}
+      {/* Custom scroll indicator — draggable */}
       {canScroll && (
-        <div className="relative h-px w-full">
-          <div className="absolute inset-0 bg-[#ccc]" />
+        <div
+          ref={trackRef}
+          onMouseDown={onTrackMouseDown}
+          onTouchStart={onTrackTouchStart}
+          className="relative h-11 -mt-[34px] w-full cursor-pointer touch-none md:h-6 md:-mt-[22px]"
+        >
+          <div className="absolute inset-x-0 top-1/2 h-px bg-[#ccc]" />
           <div
-            className="absolute top-0 h-px bg-black transition-[left] duration-100 ease-out"
+            ref={thumbRef}
+            className="absolute top-1/2 -translate-y-1/2 h-px bg-black"
             style={{
               width: `${thumbWidth}%`,
               left: `${thumbLeft}%`,
