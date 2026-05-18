@@ -8,7 +8,7 @@ const headers: HeadersInit = {
 };
 
 const localProducts = fallbackProducts as Product[];
-const localProductDetails = fallbackProductDetails as Record<string, ProductDetail>;
+const localProductDetails = fallbackProductDetails as unknown as Record<string, ProductDetail>;
 
 function normalizeText(value: string): string {
   return value
