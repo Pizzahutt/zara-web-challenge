@@ -11,6 +11,9 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
           queries: {
             staleTime: 60 * 1000,
             refetchOnWindowFocus: false,
+            // Do not retry on failure — the API client has its own local
+            // fallback snapshot, so retrying would only delay the response.
+            retry: 0,
           },
         },
       }),
