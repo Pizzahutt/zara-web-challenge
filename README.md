@@ -17,6 +17,7 @@ E-commerce web application for browsing a mobile phone catalog. Built as part of
 - **SEO & Social** — SSR metadata per product, Open Graph + Twitter Card tags
 - **PWA** — Web manifest for Chrome install prompt, theme color
 - **CSS Variables** — Design tokens in `:root` linked to Tailwind config for easy theming
+- **API Fallback Snapshot** — If the public API is down or times out, the app automatically serves a local snapshot (`src/lib/fallback`) so the portfolio demo remains usable
 
 ## Tech Stack
 
@@ -70,6 +71,17 @@ npm run test:run  # Unit tests — single run
 npm run e2e       # E2E tests (Playwright, mobile + desktop)
 npm run e2e:ui    # E2E tests with interactive UI
 ```
+
+### Refresh Fallback Data Snapshot
+
+```bash
+npm run fallback:refresh
+```
+
+This command fetches the latest `/products` and `/products/:id` payloads and rewrites:
+
+- `src/lib/fallback/products.json`
+- `src/lib/fallback/product-details.json`
 
 ### Linting & Formatting
 
